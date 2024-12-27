@@ -1678,7 +1678,17 @@ class obal(linux):
         env.DEFINES.update(
             CONFIG_HAL_BOARD_SUBTYPE = 'HAL_BOARD_SUBTYPE_LINUX_OBAL_V1',
         )
-
+class menthosa_orin(linux):
+    toolchain = 'aarch64-linux-gnu'
+    def __init__(self):
+        self.with_can = True
+        
+    def configure_env(self, cfg, env):
+        super(menthosa_orin, self).configure_env(cfg, env)
+        cfg.env.HAL_NUM_CAN_IFACES = 1
+        env.DEFINES.update(
+            CONFIG_HAL_BOARD_SUBTYPE = 'HAL_BOARD_SUBTYPE_LINUX_MENTHOSA_ORIN',
+        )
 class canzero(linux):
     toolchain = 'arm-linux-gnueabihf'
 

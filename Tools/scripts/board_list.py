@@ -72,6 +72,7 @@ class BoardList(object):
             Board("bebop"),
             Board("blue"),
             Board("pxfmini"),
+            Board("menthosa_orin"),
             Board("canzero"),
             Board("SITL_x86_64_linux_gnu"),
             Board("SITL_arm_linux_gnueabihf"),
