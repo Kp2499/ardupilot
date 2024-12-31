@@ -249,7 +249,7 @@
     #define HAL_BOARD_STORAGE_DIRECTORY "/opt/ardupilot"
     #define HAL_PARAM_DEFAULTS_PATH "/opt/ardupilot/ardupilot.parm"
     #define HAL_BARO_PROBE_LIST PROBE_BARO_I2C(BMP280, 7, 0x76)
-    #define HAL_INS_PROBE1 PROBE_IMU_SPI(LSM9DS1, "lsm9ds1_m",  ROTATION_NONE)
+    #define HAL_INS_PROBE1 PROBE_IMU_SPI(Invensense, "mpu9250",  ROTATION_NONE)
     // #define HAL_INS_PROBE1 PROBE_IMU_SPI(Invensensev2, "icm20948", ROTATION_NONE)
     #define HAL_PROBE_EXTERNAL_I2C_COMPASSES
     // #define HAL_INS_PROBE_LIST PROBE_IMU_I2C(Invensense, 7, 0x68, ROTATION_NONE)  
