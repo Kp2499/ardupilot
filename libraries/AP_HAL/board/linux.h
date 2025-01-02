@@ -243,6 +243,20 @@
     #define HAL_GPIO_C_LED_PIN        16
     #define HAL_GPIO_LED_ON           0
     #define HAL_GPIO_LED_OFF          1
+#elif CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_LINUX_MENTHOSA_ORIN
+    #define HAL_BOARD_LOG_DIRECTORY "/opt/ardupilot/logs"
+    #define HAL_BOARD_TERRAIN_DIRECTORY "/opt/ardupilot/terrain"
+    #define HAL_BOARD_STORAGE_DIRECTORY "/opt/ardupilot"
+    #define HAL_PARAM_DEFAULTS_PATH "/opt/ardupilot/ardupilot.parm"
+    #define HAL_BARO_PROBE_LIST PROBE_BARO_I2C(BMP280, 1, 0x76)
+    // #define HAL_INS_PROBE_LIST PROBE_IMU_I2C(Invensense, 1, 0x68, ROTATION_NONE)  
+    #define HAL_INS_PROBE_LIST PROBE_IMU_I2C(Invensensev2, 7, 0x69, ROTATION_NONE)    
+    #define HAL_PROBE_EXTERNAL_I2C_COMPASSES
+    #define HAL_NUM_CAN_IFACES 1
+    // #define HAL_INS_PROBE1 PROBE_IMU_SPI(Invensensev2, "icm20948", ROTATION_NONE)
+    // #define HAL_INS_PROBE_LIST PROBE_IMU_I2C(Invensense, 7, 0x68, ROTATION_NONE)  
+    // #define HAL_MAG_PROBE_LIST PROBE_MAG_IMU(AK8963, mpu9250, 7, ROTATION_NONE)
+    // #define HAL_MAG_PROBE_LIST HAL_MAG_PROBE1
 #elif CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_LINUX_AERO
     #define HAL_INS_PROBE_LIST PROBE_IMU_SPI(BMI160, "bmi160")
     #define HAL_BARO_PROBE_LIST PROBE_BARO_I2C(MS56XX, 2, 0x76)

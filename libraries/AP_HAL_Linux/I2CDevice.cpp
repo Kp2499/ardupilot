@@ -377,6 +377,11 @@ I2CDeviceManager::get_device(uint8_t bus, uint8_t address,
 AP_HAL::OwnPtr<AP_HAL::I2CDevice>
 I2CDeviceManager::_create_device(I2CBus &b, uint8_t address) const
 {
+#if CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_LINUX_MENTHOSA_ORIN
+    if(b.bus == 0 || b.bus == 2 || b.bus == 4 || b.bus == 5 || b.bus == 9 || b.bus == 10 || b.bus == 11) {
+        return nullptr;
+    }
+#endif
     auto dev = AP_HAL::OwnPtr<AP_HAL::I2CDevice>(new I2CDevice(b, address));
     if (!dev) {
         return nullptr;

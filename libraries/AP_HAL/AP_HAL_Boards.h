@@ -43,7 +43,7 @@
 #define HAL_BOARD_SUBTYPE_LINUX_VNAV       1024
 #define HAL_BOARD_SUBTYPE_LINUX_OBAL_V1    1025
 #define HAL_BOARD_SUBTYPE_LINUX_CANZERO    1026
-
+#define HAL_BOARD_SUBTYPE_LINUX_MENTHOSA_ORIN 1027
 /* HAL CHIBIOS sub-types, starting at 5000
 
    NOTE!! Do not add more subtypes unless they are really needed. Most
