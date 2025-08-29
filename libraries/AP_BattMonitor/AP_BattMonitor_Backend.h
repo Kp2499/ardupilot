@@ -103,6 +103,9 @@ public:
     bool option_is_set(const AP_BattMonitor_Params::Options option) const {
         return (uint16_t(_params._options.get()) & uint16_t(option)) != 0;
     }
+
+    // handle mavlink messages
+    virtual void handle_msg(const mavlink_message_t &msg) {}
     
 #if AP_BATTERY_SCRIPTING_ENABLED
     virtual bool handle_scripting(const BattMonitorScript_State &battmon_state) { return false; }

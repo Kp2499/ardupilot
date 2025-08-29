@@ -29,6 +29,7 @@
 #include "AP_BattMonitor_AD7091R5.h"
 #include "AP_BattMonitor_Scripting.h"
 #include "AP_BattMonitor_TIBQ76952.h"
+#include "AP_BattMonitor_MAV.h"
 
 #include <AP_HAL/AP_HAL.h>
 
@@ -580,6 +581,7 @@ AP_BattMonitor::init()
 
         const auto allocation_type = configured_type(instance);
         switch (allocation_type) {
+
 #if AP_BATTERY_ANALOG_ENABLED
             case Type::ANALOG_VOLTAGE_ONLY:
             case Type::ANALOG_VOLTAGE_AND_CURRENT:
@@ -713,6 +715,13 @@ AP_BattMonitor::init()
                 drivers[instance] = NEW_NOTHROW AP_BattMonitor_TIBQ76952(*this, state[instance], _params[instance]);
                 break;
 #endif // AP_BATTERY_TIBQ76952_ENABLED
+#endif  
+            // AP_BATTERY_MAVLINK_ENABLED
+            // MAVLINK BASED BATTERY MONITOR
+            case Type::MAVLINK:
+               drivers[instance] = NEW_NOTHROW AP_BattMonitor_MAV(*this, state[instance], _params[instance]);
+                break;
+            
             case Type::NONE:
             default:
                 break;
