@@ -1251,6 +1251,19 @@ bool AP_BattMonitor::healthy() const
     return true;
 }
 
+
+// handle mavlink messages
+void AP_BattMonitor::handle_msg(const mavlink_message_t &msg)
+{
+    for (uint8_t i=0; i<AP_BATT_MONITOR_MAX_INSTANCES; i++) {
+            if (drivers[i] != nullptr) {
+            drivers[i]->handle_msg(msg);
+        }
+    }
+}
+
+
+
 #if AP_BATTERY_SCRIPTING_ENABLED
 /*
   handle state update from a lua script

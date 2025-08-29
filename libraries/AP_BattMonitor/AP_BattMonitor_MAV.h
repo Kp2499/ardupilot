@@ -1,9 +1,7 @@
 #pragma once
 
 #include <AP_Common/AP_Common.h>
-#include <AP_HAL/I2CDevice.h>
 #include "AP_BattMonitor_Backend.h"
-#include <AP_Param/AP_Param.h>
 #include <utility>
 
 class AP_BattMonitor_MAV : public AP_BattMonitor_Backend
