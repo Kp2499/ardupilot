@@ -7,20 +7,23 @@
 class AP_BattMonitor_MAV : public AP_BattMonitor_Backend
 {
 public:
-   // Inherit constructor
+    // Inherit constructor
     using AP_BattMonitor_Backend::AP_BattMonitor_Backend;
 
-    bool has_current() const override { return true; }
+    bool has_current() const override {
+        return true;
+    }
 
     void init(void) override;
     void read() override;
     bool has_consumed_energy(void) const override {
-    return true;
+        return true;
     }
-     // handle mavlink messages
+    // handle mavlink messages
     void handle_msg(const mavlink_message_t &msg) override;
 
 private:
+    HAL_Semaphore sem;
     void handle_battery_status_msg(const mavlink_message_t &msg);
 };
 
