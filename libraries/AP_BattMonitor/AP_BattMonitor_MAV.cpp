@@ -5,6 +5,8 @@
 #include <AP_HAL/utility/sparse-endian.h>
 #include "AP_BattMonitor_MAV.h"
 
+uint8_t battery_percentage = 0;
+
 void AP_BattMonitor_MAV::handle_msg(const mavlink_message_t &msg) {
     switch (msg.msgid) {
     case (MAVLINK_MSG_ID_BATTERY_STATUS):
@@ -42,6 +44,7 @@ void AP_BattMonitor_MAV::handle_battery_status_msg(const mavlink_message_t &msg)
     _state.last_time_micros = t_now_us;
     _state.temperature_time = t_now_us;
     _state.last_healthy_ms = AP_HAL::millis();
+    battery_percentage= packet.battery_remaining;
 
     // TO DO: WRITE A DYNAMIC RTL FROM HOME AND BATTERY FAILSAFE
     return;
@@ -59,9 +62,16 @@ void AP_BattMonitor_MAV::read(void)
     WITH_SEMAPHORE(sem);
     // CHECK BATTERY HEALTH
     if(AP_HAL::micros()-_state.last_time_micros >2000000) {
-        // GCS_SEND_TEXT(MAV_SEVERITY_WARNING, "BAD BATTWEY");
+        // GCS_SEND_TEXT(MAV_SEVERITY_WARNING, "BAD BATTERY");
         _state.healthy = false;
     }
+}
+
+// MAVLINK BASED BATTERY MONITOR PROVIDES PERCENTAGE 
+bool AP_BattMonitor_MAV::capacity_remaining_pct(uint8_t &percentage) const
+{
+    percentage = battery_percentage;
+    return true;
 }
 
 #endif  // AP_BATTERY_ENABLED

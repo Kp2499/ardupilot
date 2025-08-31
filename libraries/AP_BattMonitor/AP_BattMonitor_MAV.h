@@ -19,7 +19,14 @@ public:
     bool has_consumed_energy(void) const override {
         return true;
     }
-    // handle mavlink messages
+
+    bool has_temperature(void) const override{
+        return true;
+    }
+
+    bool capacity_remaining_pct(uint8_t &percentage) const override;
+
+    // HANDLE MAVLink MSG
     void handle_msg(const mavlink_message_t &msg) override;
 
 private:
