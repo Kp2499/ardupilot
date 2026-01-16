@@ -715,7 +715,6 @@ AP_BattMonitor::init()
                 drivers[instance] = NEW_NOTHROW AP_BattMonitor_TIBQ76952(*this, state[instance], _params[instance]);
                 break;
 #endif // AP_BATTERY_TIBQ76952_ENABLED
-#endif  
             // AP_BATTERY_MAVLINK_ENABLED
             // MAVLINK BASED BATTERY MONITOR
             case Type::MAVLINK:
