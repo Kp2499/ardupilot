@@ -15,7 +15,7 @@ void AP_BattMonitor_MAV::handle_msg(const mavlink_message_t &msg) {
     }
 }
 
-// handle mavlink DISTANCE_SENSOR messages
+// HANDLE BATTERY STATUS MAVLINK MSG
 void AP_BattMonitor_MAV::handle_battery_status_msg(const mavlink_message_t &msg)
 {
     mavlink_battery_status_t packet;
@@ -38,13 +38,15 @@ void AP_BattMonitor_MAV::handle_battery_status_msg(const mavlink_message_t &msg)
     // UPDATE STATES
     _state.voltage = v_bat/1000;
     _state.healthy = true;
-    _state.current_amps = packet.current_battery /100;
+    _state.current_amps = (float)packet.current_battery / 100.0f;
     _state.consumed_mah = packet.current_consumed;
-    _state.temperature = packet.temperature/100;
+    _state.temperature = (float)packet.temperature/100.0f;
     _state.last_time_micros = t_now_us;
     _state.temperature_time = t_now_us;
     _state.last_healthy_ms = AP_HAL::millis();
-    battery_percentage= packet.battery_remaining;
+    battery_percentage = packet.battery_remaining;
+    _state.has_time_remaining = true;
+    _state.time_remaining = packet.time_remaining;
 
     // TO DO: WRITE A DYNAMIC RTL FROM HOME AND BATTERY FAILSAFE
     return;
@@ -56,7 +58,7 @@ void AP_BattMonitor_MAV::init(void)
 }
 
 
-/// read the battery_voltage and current, should be called at 10hz
+// read the battery_voltage and current, should be called at 10hz
 void AP_BattMonitor_MAV::read(void)
 {
     WITH_SEMAPHORE(sem);
@@ -64,6 +66,7 @@ void AP_BattMonitor_MAV::read(void)
     if(AP_HAL::micros()-_state.last_time_micros >2000000) {
         // GCS_SEND_TEXT(MAV_SEVERITY_WARNING, "BAD BATTERY");
         _state.healthy = false;
+        _state.has_time_remaining=false;
     }
 }
 
