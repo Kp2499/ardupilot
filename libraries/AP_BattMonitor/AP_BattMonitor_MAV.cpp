@@ -70,12 +70,12 @@ void AP_BattMonitor_MAV::read(void)
     }
 }
 
-// MAVLINK BASED BATTERY MONITOR PROVIDES PERCENTAGE 
+// MAVLINK BASED BATTERY MONITOR PROVIDES PERCENTAGE
 bool AP_BattMonitor_MAV::capacity_remaining_pct(uint8_t &percentage) const
 {
     percentage = battery_percentage;
     return true;
-    
+
 }
 
 #endif  // AP_BATTERY_ENABLED
