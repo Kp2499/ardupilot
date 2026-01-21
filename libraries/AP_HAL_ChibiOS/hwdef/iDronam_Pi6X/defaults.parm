@@ -1,0 +1,3 @@
+# setup correct defaults for battery monitoring for iDronam MAVLink battery
+BATT_MONITOR 33
+
