@@ -63,10 +63,11 @@ void AP_BattMonitor_MAV::read(void)
 {
     WITH_SEMAPHORE(sem);
     // CHECK BATTERY HEALTH
-    if(AP_HAL::micros()-_state.last_time_micros >2000000) {
+    if(AP_HAL::micros()-_state.last_time_micros >5000000) {
         // GCS_SEND_TEXT(MAV_SEVERITY_WARNING, "BAD BATTERY");
         _state.healthy = false;
         _state.has_time_remaining=false;
+        _state.failsafe = AP_BattMonitor::Failsafe::Low;
     }
 }
 
