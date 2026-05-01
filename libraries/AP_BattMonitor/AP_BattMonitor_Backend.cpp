@@ -194,6 +194,11 @@ AP_BattMonitor::Failsafe AP_BattMonitor_Backend::update_failsafes(void)
         return AP_BattMonitor::Failsafe::Unhealthy;
     }
 
+    // UPDATE FAILSAFE FOR MAV BASED BATTERY
+    if(_state.failsafe == AP_BattMonitor::Failsafe::Unhealthy){
+        return AP_BattMonitor::Failsafe::Low;
+    }
+
     // if we've gotten this far then battery is ok
     return AP_BattMonitor::Failsafe::None;
 }
