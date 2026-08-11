@@ -7,7 +7,8 @@
 
 uint8_t battery_percentage = 0;
 
-void AP_BattMonitor_MAV::handle_msg(const mavlink_message_t &msg) {
+void AP_BattMonitor_MAV::handle_msg(const mavlink_message_t &msg)
+{
     switch (msg.msgid) {
     case (MAVLINK_MSG_ID_BATTERY_STATUS):
         handle_battery_status_msg(msg);
@@ -63,11 +64,13 @@ void AP_BattMonitor_MAV::read(void)
 {
     WITH_SEMAPHORE(sem);
     // CHECK BATTERY HEALTH
-    if(AP_HAL::micros()-_state.last_time_micros >2000000) {
+    if (AP_HAL::micros()-_state.last_time_micros > 5000000 && _state.healthy) {
         // GCS_SEND_TEXT(MAV_SEVERITY_WARNING, "BAD BATTERY");
         _state.healthy = false;
-        _state.has_time_remaining=false;
+        _state.has_time_remaining = false;
+        _state.failsafe = AP_BattMonitor::Failsafe::Unhealthy;
     }
+
 }
 
 // MAVLINK BASED BATTERY MONITOR PROVIDES PERCENTAGE
